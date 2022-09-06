@@ -1,5 +1,11 @@
 package studentscoredb;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 // Stuart Anderson, 30056472, 30/08/2022
 // OOP2, AT1-Activity 3
 // Student Score Database
