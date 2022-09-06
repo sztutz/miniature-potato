@@ -28,7 +28,49 @@ import java.sql.Statement;
 public class StudentScoreDB {
 
     public static void main(String[] args) {
-
+        String url = "jdbc:mysql://localhost:3306/student_management"; // 3306 is the default port
+        String user = "root";
+        String password = "";
+        
+        Connection con = null; // JDBC connection
+        Statement stmt = null; // SQL statement object
+        String query; // SQL query string
+        ResultSet result = null; // results after SQL execution
+        
+        try {
+            con = DriverManager.getConnection(url, user, password); // connect to MYSQL
+            stmt = con.createStatement();
+            
+            query = "select * from student_score";
+            result = stmt.executeQuery(query); // execute the SQL query
+            
+            System.out.printf("%-10s%-35s%-12s %-9s%-7s%-7s\n", "Subject", "Score");
+            
+            while(result.next()) { // loop until the end of the results
+                String subject = result.getString("Subject");
+                int score = result.getInt("Score");
+                
+                System.out.printf("%8d %-35s%10d %7.2f %7d%7d\n", subject, score);
+            }
+        } catch (Exception ex) {
+            System.out.println("SQLException caught: " + ex.getMessage());
+        } finally {
+            // Close all database objects
+            try {
+                if(result != null) {
+                    result.close();
+                }
+                
+                if(stmt != null) {
+                    stmt.close();
+                }
+                
+                if(con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println("SQLException caught: " + ex.getMessage());
+            }
+        }
     }
-    
 }
