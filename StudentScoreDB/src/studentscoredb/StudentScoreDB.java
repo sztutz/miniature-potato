@@ -41,16 +41,41 @@ public class StudentScoreDB {
             con = DriverManager.getConnection(url, user, password); // connect to MYSQL
             stmt = con.createStatement();
             
+            System.out.println("\n##############################");
+            System.out.println(" Database is being created...");
+            System.out.println("##############################\n");
+            query = "drop database if exists student_management;";
+            stmt.executeUpdate(query);
+            query = "create database student_management;";
+            stmt.executeUpdate(query);
+            query = "use student_management;";
+            stmt.executeUpdate(query);
+            query = """
+                create table student_score(
+                Subject varchar(32),
+                Score integer);
+                """;
+            stmt.executeUpdate(query);
+            query = """
+                insert into student_score
+                (Subject, Score)
+                values
+                ("Math", 76),
+                ("English", 50),
+                ("Chemistry", 83),
+                ("Physics", 92);        
+                """;
+            stmt.executeUpdate(query);
+                        
             query = "select * from student_score";
             result = stmt.executeQuery(query); // execute the SQL query
             
-            System.out.printf("%-10s%-35s%-12s %-9s%-7s%-7s\n", "Subject", "Score");
-            
+            System.out.printf("%-15s %-10s\n", "Subject", "Score");
             while(result.next()) { // loop until the end of the results
                 String subject = result.getString("Subject");
                 int score = result.getInt("Score");
                 
-                System.out.printf("%8d %-35s%10d %7.2f %7d%7d\n", subject, score);
+                System.out.printf("%-15s %-10d\n", subject, score);
             }
         } catch (Exception ex) {
             System.out.println("SQLException caught: " + ex.getMessage());
