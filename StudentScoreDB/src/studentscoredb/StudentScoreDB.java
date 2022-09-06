@@ -9,6 +9,7 @@ import java.sql.Statement;
 // Stuart Anderson, 30056472, 30/08/2022
 // OOP2, AT1-Activity 3
 // Student Score Database
+
 // A Java program that manages students’ scores in database is required. The program will read and
 // update records in the database, and show them on the screen. Do the task below:
 // o Design a database table that contains two columns, subject and score.
